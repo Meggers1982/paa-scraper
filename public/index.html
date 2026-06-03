@@ -79,16 +79,9 @@
   <!-- Config -->
   <div class="card">
     <h2>Configuration</h2>
-    <div class="grid2">
-      <div class="field">
-        <label>SerpAPI Key</label>
-        <input type="password" id="api-key" placeholder="Your SerpAPI key" />
-        <p class="hint">Never stored — used only in your browser session.</p>
-      </div>
-      <div class="field">
-        <label>Location</label>
-        <input type="text" id="location" value="United States" />
-      </div>
+    <div class="field">
+      <label>Location</label>
+      <input type="text" id="location" value="United States" style="max-width:320px" />
     </div>
     <div class="grid3">
       <div class="field">
@@ -211,10 +204,8 @@ function loadFile(file) {
 
 // ── Run scraper ───────────────────────────────────────────────────────────────
 async function runScraper() {
-  const apiKey = document.getElementById('api-key').value.trim();
   const keywords = document.getElementById('keywords').value.trim().split('\n').map(k => k.trim()).filter(Boolean);
 
-  if (!apiKey) { alert('Please enter your SerpAPI key.'); return; }
   if (!keywords.length) { alert('Please enter at least one keyword.'); return; }
 
   allRows = [];
@@ -233,7 +224,6 @@ async function runScraper() {
   document.getElementById('stop-btn').disabled = false;
 
   const params = {
-    api_key: apiKey,
     location: document.getElementById('location').value,
     max_depth: document.getElementById('max-depth').value,
     max_questions: document.getElementById('max-questions').value,
