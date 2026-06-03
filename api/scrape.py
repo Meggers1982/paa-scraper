@@ -6,10 +6,13 @@ Called once per keyword from the frontend.
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import json
+import os
 import time
 from collections import deque
 
 from serpapi import GoogleSearch
+
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "")
 
 
 def fetch_paa(query, api_key, location, hl="en", gl="us"):
@@ -74,7 +77,7 @@ class handler(BaseHTTPRequestHandler):
         def q(key, default=""):
             return qs.get(key, [default])[0]
 
-        api_key = q("api_key")
+        api_key = q("api_key") or SERPAPI_KEY
         keyword = q("keyword")
         location = q("location", "United States")
         max_depth = int(q("max_depth", "3"))
